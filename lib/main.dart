@@ -1,3 +1,6 @@
+import 'package:MultiLogin/Landing/landing.dart';
+import 'package:MultiLogin/LoginPage/login.dart';
+import 'package:MultiLogin/SignupPage/signUp.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -26,7 +30,12 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: LandingScreen(),
+      routes: {
+        "landing_page": (context) => LandingScreen(),
+        "login_page": (context) => LoginComponent(),
+        "signup_page": (context) => SignUpScreen()
+      },
     );
   }
 }
