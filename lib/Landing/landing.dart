@@ -24,9 +24,11 @@ class _LandingScreenState extends State<LandingScreen> {
                 preferredSize: Size.fromHeight(0.0), // here the desired height
                 child: new AppBar(
                   automaticallyImplyLeading: false,
-// leading: _buildScreenLeading(context),
                   elevation: 0.0,
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: Colors.grey,
+                  title: Padding(
+              padding: const EdgeInsets.only(left: 0, top: 5, right: 0),
+            ),
                 )),
         backgroundColor: Colors.white,
         body: Center(

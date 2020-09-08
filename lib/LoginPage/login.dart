@@ -47,20 +47,36 @@ class SampleLoginState extends State<LoginComponent> {
     );
   }
 
+  Widget showText() {
+    return new Padding(
+        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+        child: Container(
+          alignment: Alignment.center,
+          child: new Text(
+            'Login',
+            style: new TextStyle(
+                fontSize: 32.0,
+                color: Colors.black38,
+                fontWeight: FontWeight.bold),
+          ),
+        ));
+  }
+
     @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
           leading: _buildScreenLeading(context),
           elevation: 0.0,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Colors.grey,
         ),
       body: 
       Column(
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
            
-            SizedBox(height: 180),
+            SizedBox(height: 120),
+            showText(),
             Padding(
               padding: const EdgeInsets.only(left:30.0,right: 30.0,bottom: 0,top: 10),
               child: EmailClass(emailController: _emailController,
@@ -84,38 +100,18 @@ class SampleLoginState extends State<LoginComponent> {
             },
             width: 350,
             backgroundColor: Colors.black38,),
-            Padding(
-              padding: const EdgeInsets.only(left:30.0,right: 30.0),
-              child: RememberMeClass(activeColor: Colors.grey,
-              rememberCheckVaue: rememberValue,
-              checkAction: (value){
-                setState(() {
-                  rememberValue = !rememberValue;
-                });
-              },
-              textColor: Colors.black,
-              ),
-            ),
-          //   Row(
-          //      mainAxisAlignment: MainAxisAlignment.center,
-          // mainAxisSize: MainAxisSize.min,
-          //     children: [
-          //       FaceBookLoginClass(onTapFacebookLogin: (value){
-          //       print('facebook data $value');
-          //     },
-          //     image: 'assets/facebook.png',),
-          //     GoogleLoginClass(onTapGoogleLogin: (value){
-          //       print('account ** $value');
-          //      print('iam google');
-          //     },
-          //     image: 'assets/Google.png',)
-          //     ],
-                          
-          //   ),
-            // TextFieldClass(),
-            // ListClass(height: 100,errorMessage: 'no data available',datalistArray: _listViewData,subChild: (index){
-            //   return Text('$index lavanya here');
-            // },)
+            // Padding(
+            //   padding: const EdgeInsets.only(left:30.0,right: 30.0),
+            //   child: RememberMeClass(activeColor: Colors.grey,
+            //   rememberCheckVaue: rememberValue,
+            //   checkAction: (value){
+            //     setState(() {
+            //       rememberValue = !rememberValue;
+            //     });
+            //   },
+            //   textColor: Colors.black,
+            //   ),
+            // ),
             SizedBox(height:200)
             
           ],
