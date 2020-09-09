@@ -1,3 +1,5 @@
+import 'package:MultiLogin/Dashboard/role1Dashboard.dart';
+import 'package:MultiLogin/Dashboard/role2Dashboard.dart';
 import 'package:MultiLogin/Landing/landing.dart';
 import 'package:MultiLogin/LoginPage/login.dart';
 import 'package:MultiLogin/SignupPage/signUp.dart';
@@ -41,7 +43,9 @@ class MyApp extends StatelessWidget {
       routes: {
         "landing_page": (context) => LandingScreen(),
         "login_page": (context) => LoginComponent(),
-        "signup_page": (context) => SignUpScreen()
+        "signup_page": (context) => SignUpScreen(),
+        "role1_dashboard": (context) => Role1Dashboard(),
+        "role2_dashboard": (context) => Role2Dashboard()
       },
     );
   }

@@ -93,7 +93,7 @@ class SampleLoginState extends State<LoginComponent> {
            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
            
-            SizedBox(height: 120),
+            SizedBox(height: 80),
             showText(),
             _showCircularProgress(),
             authError != null && authError != ''
@@ -174,6 +174,7 @@ class SampleLoginState extends State<LoginComponent> {
     }
   }
   loginFunction()async{
+    FocusScope.of(context).requestFocus(FocusNode());
        try {
       userId =
           await auth.signIn(_emailController.text, _passwordController.text);
@@ -200,6 +201,28 @@ class SampleLoginState extends State<LoginComponent> {
     {
        String userRole =  getRecentObject['role'];
        print('role is: $userRole');
+       if(userRole == 'Role1')
+       {
+         setState(() {
+           _emailController.text = '';
+           _passwordController.text = '';
+         });
+         Navigator.of(context).pushNamed("role1_dashboard");
+       }
+       else if(userRole == 'Role2')
+       {
+         setState(() {
+           _emailController.text = '';
+           _passwordController.text = '';
+         });
+         Navigator.of(context).pushNamed("role2_dashboard");
+       }
+       else
+       {
+         setState(() {
+        authError = 'there is no user basing on this role';
+      });
+       }
     }
     else
     {
