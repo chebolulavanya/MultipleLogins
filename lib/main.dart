@@ -2,8 +2,14 @@ import 'package:MultiLogin/Landing/landing.dart';
 import 'package:MultiLogin/LoginPage/login.dart';
 import 'package:MultiLogin/SignupPage/signUp.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+  main() {
+  mainPage();
+}
+void mainPage() async{
+  WidgetsFlutterBinding.ensureInitialized();
+ await Firebase.initializeApp();
   runApp(MyApp());
 }
 

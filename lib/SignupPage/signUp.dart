@@ -337,7 +337,9 @@ class _SignUpScreenState extends State<SignUpScreen>
         roleError = 'Enter Role';
       });
     } else {
-      if (emailError == '' && passwordError == '' && confirmpswdError == '' && roleError == '' && _selectedRole.name != 'Select Role') {
+      if (emailError == '' && passwordError == '' && confirmpswdError == '' && roleError == '' && _selectedRole.name != 'Select Role' && _emailController.text != '' &&
+        _passwordController.text != '' &&
+        _confirmpasswordController.text != '') {
         setState(() {
           _isLoading = true;
         });
@@ -350,6 +352,15 @@ class _SignUpScreenState extends State<SignUpScreen>
           setState(() {
             roleError = 'Enter Role';
           });
+        }
+        else
+        {
+          Fluttertoast.showToast(
+                msg: 'Please fill all mandatory fields',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 3);
+
         }
       }
 

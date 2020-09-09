@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:MultiLogin/Authentication/auth.dart';
 import 'package:MultiLogin/CommonComponents/reusableComponent.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class LoginComponent extends StatefulWidget {
@@ -24,11 +27,16 @@ class SampleLoginState extends State<LoginComponent> {
   bool isfirstTime = false;
   String emailError = '';
   String passwordError = '';
+  bool _isLoading = false;
+  String userId = '';
+  Authentication auth;
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
+  String authError = '';
 
   @override
   void initState() {
     super.initState();
-  
+  auth = new Authentication();
   }
 
    Widget _buildScreenLeading(context) {
@@ -62,6 +70,16 @@ class SampleLoginState extends State<LoginComponent> {
         ));
   }
 
+  Widget _showCircularProgress() {
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
+  }
+
     @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,9 +95,18 @@ class SampleLoginState extends State<LoginComponent> {
            
             SizedBox(height: 120),
             showText(),
+            _showCircularProgress(),
+            authError != null && authError != ''
+                    ? Padding(
+                      padding: const EdgeInsets.only(left:30.0,right: 30.0),
+                      child: IndividualErrorContainer(errorMsg: authError),
+                    )
+                    : SizedBox(height: 0),
             Padding(
               padding: const EdgeInsets.only(left:30.0,right: 30.0,bottom: 0,top: 10),
-              child: EmailClass(emailController: _emailController,
+              child: EmailClass(
+                emailLength: 50,
+                emailController: _emailController,
              emailErrormsg: emailError,getChagnedValue: (value){
                setState(() {
                  emailError = value;
@@ -129,19 +156,69 @@ class SampleLoginState extends State<LoginComponent> {
     }
     else
     {
-      if(emailError == '' && passwordError == '')
+      if(emailError == '' && passwordError == '' && _emailController.text != '' && _passwordController.text != '')
       {
-        print('success');
+        setState(() {
+          _isLoading = true;
+        });
+       loginFunction();
+      }
+      else
+      {
+        Fluttertoast.showToast(
+                msg: 'Please fill all mandatory fields',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 3);
       }
     }
-    
-    
-    // BottomTabComponent
-    // if(emailError == "" && passwordError == "")
-    // {
-      // Navigator.of(context).pushNamed("login_page");
-    // }
   }
+  loginFunction()async{
+       try {
+      userId =
+          await auth.signIn(_emailController.text, _passwordController.text);
+      print('Signed up user: $userId');
+      getuserRole(userId);
+    } catch (e) {
+      print('Error: $e');
+      setState(() {
+        authError = e.message;
+        _isLoading = false;
+      });
+    }
+    }
+    getuserRole(String userId) async{
+      try {
+  Map<dynamic,dynamic> getRecentObject;
+    final dbRef =
+        FirebaseDatabase.instance.reference().child("UserRoles").child(userId);
+  await  dbRef.once().then((DataSnapshot snapshot) {
+          getRecentObject = snapshot.value;
+    });
+
+    if(getRecentObject != null)
+    {
+       String userRole =  getRecentObject['role'];
+       print('role is: $userRole');
+    }
+    else
+    {
+      setState(() {
+        authError = 'something wentWrong with This user';
+      });
+    }
+   setState(() {
+     _isLoading = false;
+   });
+    } catch (e) {
+      print('Error: $e');
+      setState(() {
+        authError = e.message;
+        _isLoading = false;
+      });
+    }
+       
+    }
  
   Widget subChild(){
     return Padding(
