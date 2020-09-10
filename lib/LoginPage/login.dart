@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:MultiLogin/Authentication/auth.dart';
 import 'package:MultiLogin/CommonComponents/reusableComponent.dart';
+import 'package:MultiLogin/Profile/profile.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -203,11 +204,16 @@ class SampleLoginState extends State<LoginComponent> {
        print('role is: $userRole');
        if(userRole == 'Role1')
        {
-         setState(() {
-           _emailController.text = '';
-           _passwordController.text = '';
-         });
-         Navigator.of(context).pushNamed("role1_dashboard");
+         
+        //  Navigator.of(context).pushNamed("profile");
+         Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileScreen(userId:userId,role: userRole,email: _emailController.text,)),
+    );
+    // setState(() {
+    //        _emailController.text = '';
+    //        _passwordController.text = '';
+    //      });
        }
        else if(userRole == 'Role2')
        {

@@ -1,4 +1,5 @@
 import 'package:MultiLogin/Authentication/auth.dart';
+import 'package:MultiLogin/Profile/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -43,18 +44,7 @@ Authentication auth;
            ),
          ],
       ),
-      body: Center(
-      
-        child: Column(
-          
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Welcome Role1 User',
-            ),
-          ],
-        ),
-      ),
+      body: ProfileScreen(),
     );
   }
 }

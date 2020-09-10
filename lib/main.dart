@@ -2,6 +2,8 @@ import 'package:MultiLogin/Dashboard/role1Dashboard.dart';
 import 'package:MultiLogin/Dashboard/role2Dashboard.dart';
 import 'package:MultiLogin/Landing/landing.dart';
 import 'package:MultiLogin/LoginPage/login.dart';
+import 'package:MultiLogin/Profile/editProfile.dart';
+import 'package:MultiLogin/Profile/profile.dart';
 import 'package:MultiLogin/SignupPage/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,7 +47,9 @@ class MyApp extends StatelessWidget {
         "login_page": (context) => LoginComponent(),
         "signup_page": (context) => SignUpScreen(),
         "role1_dashboard": (context) => Role1Dashboard(),
-        "role2_dashboard": (context) => Role2Dashboard()
+        "role2_dashboard": (context) => Role2Dashboard(),
+        "profile": (context) => ProfileScreen(),
+        "eidt_profile": (context) => EditProfileScreen()
       },
     );
   }
