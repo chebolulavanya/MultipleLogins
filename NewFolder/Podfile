@@ -1,0 +1,7 @@
+source 'https://github.com/cocoapods/specs'
+
+target 'GettingUpdates' do
+  use_frameworks!
+
+  pod 'TwilioVoice', '~> 6.2.0'
+end
